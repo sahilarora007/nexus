@@ -1,0 +1,61 @@
+# ── UI ──
+streamlit
+
+# ── Core backend ──
+fastapi
+uvicorn
+
+# ── LangChain ecosystem (LCEL + agents) ──
+langchain
+langchain-core
+langchain-community
+langchain-openai
+langgraph
+
+# ── OpenAI ──
+openai
+rich
+
+# ── Web scraping ──
+beautifulsoup4
+requests
+lxml
+
+# ── Tavily search API ──
+tavily-python
+
+# ── Environment variables ──
+python-dotenv
+
+# ── Data handling ──
+pandas
+numpy
+
+# ── Async support ──
+httpx
+aiohttp
+
+# ── JSON + validation ──
+pydantic
+
+# ── Logging / utilities ──
+loguru
+
+# ── CORS (for React frontend connection) ──
+python-multipart
+
+# ── Optional but useful ──
+tenacity
+tqdm
+
+# ── Vector DB (if you extend to RAG later) ──
+faiss-cpu
+
+# ── Token counting / embeddings utils ──
+tiktoken
+
+# ── Redis (for caching agents or responses) ──
+redis
+
+# ── Background tasks ──
+celery

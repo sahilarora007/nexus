@@ -1,0 +1,131 @@
+# ======================
+# Secrets & Environment
+# ======================
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets.json
+
+# ======================
+# Python
+# ======================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+wheels/
+eggs/
+sdist/
+develop-eggs/
+.installed.cfg
+lib/
+lib64/
+parts/
+var/
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+.pytype/
+.ruff_cache/
+
+# ======================
+# Virtual Environments
+# ======================
+.venv/
+venv/
+env/
+ENV/
+.env.bak
+.venv.bak
+
+# ======================
+# uv (package manager)
+# ======================
+# uv.lock is intentionally NOT ignored so dependency versions are reproducible
+# Uncomment the line below only if you don't want to pin dependencies:
+# uv.lock
+
+# ======================
+# Jupyter Notebooks
+# ======================
+.ipynb_checkpoints/
+*.ipynb
+
+# ======================
+# IDEs & Editors
+# ======================
+# VS Code
+.vscode/
+!.vscode/extensions.json
+
+# PyCharm / JetBrains
+.idea/
+*.iml
+*.iws
+
+# Vim / Emacs
+*.swp
+*.swo
+*~
+\#*\#
+.\#*
+
+# ======================
+# OS Files
+# ======================
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
+
+# Linux
+.directory
+.Trash-*
+
+# ======================
+# Testing
+# ======================
+.pytest_cache/
+htmlcov/
+.coverage
+coverage.xml
+
+# ======================
+# Misc / Temporary
+# ======================
+*.tmp
+*.bak
+*.orig
+*.rej
+scratch/
+tmp/
+temp/
