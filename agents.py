@@ -1,4 +1,4 @@
-from langchain.agents import create_agent
+from langgraph.prebuilt import create_react_agent
 from langchain_groq import ChatGroq
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
@@ -11,14 +11,14 @@ load_dotenv()
 llm = ChatGroq(model="meta-llama/llama-4-scout-17b-16e-instruct", api_key=os.getenv("GROQ_API_KEY"))
 #  1st agent 
 def build_search_agent():
-    return create_agent(
+    return create_react_agent(
         model = llm,
         tools = [web_search]
     )
-
-# 2nd agent
-def build_scraper_agent():
-    return create_agent(
+ 
+ # 2nd agent
+ def build_scraper_agent():
+    return create_react_agent(
         model = llm,
         tools = [scrape_url]
     )
