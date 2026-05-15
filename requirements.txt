@@ -1,61 +1,55 @@
 # ── UI ──
-streamlit
+streamlit==1.45.1
 
 # ── Core backend ──
-fastapi
-uvicorn
+fastapi==0.115.12
+uvicorn==0.34.2
 
-# ── LangChain ecosystem (LCEL + agents) ──
-langchain
-langchain-core
-langchain-community
-langchain-openai
-langgraph
+# ── LangChain ecosystem ──
+langchain==0.3.25
+langchain-core==0.3.59
+langchain-community==0.3.24
+langchain-openai==0.3.16
+langgraph==0.4.5
 
 # ── OpenAI ──
-openai
-rich
+openai==1.79.0
+rich==14.0.0
 
 # ── Web scraping ──
-beautifulsoup4
-requests
-lxml
+beautifulsoup4==4.13.4
+requests==2.32.3
+lxml==5.4.0
 
-# ── Tavily search API ──
-tavily-python
+# ── Tavily ──
+tavily-python==0.7.2
 
-# ── Environment variables ──
-python-dotenv
+# ── Environment ──
+python-dotenv==1.1.0
 
-# ── Data handling ──
-pandas
-numpy
+# ── Data ──
+pandas==2.2.3
+numpy==2.2.5
 
-# ── Async support ──
-httpx
-aiohttp
+# ── Async ──
+httpx==0.28.1
+aiohttp==3.11.18
 
-# ── JSON + validation ──
-pydantic
+# ── Validation ──
+pydantic==2.11.4
 
-# ── Logging / utilities ──
-loguru
+# ── Utilities ──
+loguru==0.7.3
+python-multipart==0.0.20
+tenacity==9.1.2
+tqdm==4.67.1
 
-# ── CORS (for React frontend connection) ──
-python-multipart
+# ── Vector DB ──
+faiss-cpu==1.11.0
 
-# ── Optional but useful ──
-tenacity
-tqdm
+# ── Tokens ──
+tiktoken==0.9.0
 
-# ── Vector DB (if you extend to RAG later) ──
-faiss-cpu
-
-# ── Token counting / embeddings utils ──
-tiktoken
-
-# ── Redis (for caching agents or responses) ──
-redis
-
-# ── Background tasks ──
-celery
+# ── Redis / workers ──
+redis==6.0.0
+celery==5.5.2
