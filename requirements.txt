@@ -10,6 +10,7 @@ langchain==0.3.25
 langchain-core==0.3.59
 langchain-community==0.3.24
 langchain-openai==0.3.16
+langchain-groq
 langgraph==0.4.5
 
 # ── OpenAI ──
