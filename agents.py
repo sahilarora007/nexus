@@ -17,7 +17,7 @@ def build_search_agent():
     )
  
  # 2nd agent
- def build_scraper_agent():
+def build_scraper_agent():
     return create_react_agent(
         model = llm,
         tools = [scrape_url]
