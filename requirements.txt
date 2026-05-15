@@ -11,7 +11,7 @@ langchain-core==0.3.59
 langchain-community==0.3.24
 langchain-openai==0.3.16
 langchain-groq
-langgraph>=1.1.0
+langgraph==0.3.34
 
 # ── OpenAI ──
 openai==1.79.0

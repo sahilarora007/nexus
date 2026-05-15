@@ -16,7 +16,7 @@ dependencies = [
     "langchain-core==0.3.59",
     "langchain-groq>=0.3.2",
     "langchain-openai==0.3.16",
-    "langgraph>=1.1.0",
+    "langgraph==0.3.34",
     "loguru==0.7.3",
     "lxml==5.4.0",
     "numpy==2.2.5",
