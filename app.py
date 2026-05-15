@@ -526,11 +526,11 @@ def card_height(output: str, status: str) -> int:
     return min(est, 680)
 
 def render_agent_card(icon, name, status, output, container=None):
-    """Render an agent card using st.iframe to avoid HTML injection issues."""
+    """Render an agent card using st.components.v1.html to avoid HTML injection issues."""
     html_doc = agent_card_html(icon, name, status, output)
     h = card_height(output, status)
     target = container if container else st
-    target.iframe(html_doc, height=h)
+    target.components.v1.html(html_doc, height=h, scrolling=True)
 
 # ── Run pipeline ────────────────────────────────────────────────────────────
 if run_clicked and topic.strip():
@@ -565,11 +565,11 @@ if st.session_state["running"] and not st.session_state["pipeline_done"]:
         s = st.session_state["agent_states"]
         prog_ph.markdown(render_progress(st.session_state["active_step"], done_steps), unsafe_allow_html=True)
         with ph_search.container():
-            st.iframe(agent_card_html("🔍", "Search Agent",          s["search"]["status"],    s["search"]["output"]),    height=card_height(s["search"]["output"],    s["search"]["status"]))
+            st.components.v1.html(agent_card_html("🔍", "Search Agent",          s["search"]["status"],    s["search"]["output"]),    height=card_height(s["search"]["output"],    s["search"]["status"]),    scrolling=True)
         with ph_select.container():
-            st.iframe(agent_card_html("🎯", "URL Selector Agent",    s["url_select"]["status"], s["url_select"]["output"]), height=card_height(s["url_select"]["output"], s["url_select"]["status"]))
+            st.components.v1.html(agent_card_html("🎯", "URL Selector Agent",    s["url_select"]["status"], s["url_select"]["output"]), height=card_height(s["url_select"]["output"], s["url_select"]["status"]), scrolling=True)
         with ph_scrape.container():
-            st.iframe(agent_card_html("🕷", "Scraper · Compressor",  s["scraper"]["status"],   s["scraper"]["output"]),   height=card_height(s["scraper"]["output"],   s["scraper"]["status"]))
+            st.components.v1.html(agent_card_html("🕷", "Scraper · Compressor",  s["scraper"]["status"],   s["scraper"]["output"]),   height=card_height(s["scraper"]["output"],   s["scraper"]["status"]),   scrolling=True)
 
     def set_agent(name, status, output="", thinking=None):
         st.session_state["agent_states"][name] = {"status": status, "output": output, "thinking": thinking}
@@ -667,9 +667,9 @@ URLs:
             set_agent("critic", "idle",   "")
             prog_ph.markdown(render_progress(3, done_steps), unsafe_allow_html=True)
             with ph_writer.container():
-                st.iframe(agent_card_html("✍️", f"Writer Agent — Iteration {i+1}", "active", ""), height=110)
+                st.components.v1.html(agent_card_html("✍️", f"Writer Agent — Iteration {i+1}", "active", ""), height=110, scrolling=True)
             with ph_critic.container():
-                st.iframe(agent_card_html("🧠", f"Critic Agent — Iteration {i+1}",  "idle",   ""), height=75)
+                st.components.v1.html(agent_card_html("🧠", f"Critic Agent — Iteration {i+1}",  "idle",   ""), height=75,  scrolling=True)
 
             writer_raw = writer_chain.invoke({
                 "topic":    topic_val,
@@ -685,15 +685,15 @@ URLs:
 
             set_agent("writer", "done", report, report_think)
             with ph_writer.container():
-                st.iframe(agent_card_html("✍️", f"Writer Agent — Iteration {i+1}", "done", report),
-                                height=card_height(report, "done"))
+                st.components.v1.html(agent_card_html("✍️", f"Writer Agent — Iteration {i+1}", "done", report),
+                                height=card_height(report, "done"), scrolling=True)
 
             # Critic
             st.session_state["active_step"] = 4
             set_agent("critic", "active")
             prog_ph.markdown(render_progress(4, done_steps), unsafe_allow_html=True)
             with ph_critic.container():
-                st.iframe(agent_card_html("🧠", f"Critic Agent — Iteration {i+1}", "active", ""), height=110)
+                st.components.v1.html(agent_card_html("🧠", f"Critic Agent — Iteration {i+1}", "active", ""), height=110, scrolling=True)
 
             critic_raw = critic_chain.invoke({"report": report})
             if hasattr(critic_raw, "content"):
@@ -705,8 +705,8 @@ URLs:
 
             set_agent("critic", "done", feedback, feedback_think)
             with ph_critic.container():
-                st.iframe(agent_card_html("🧠", f"Critic Agent — Iteration {i+1}", "done", feedback),
-                                height=card_height(feedback, "done"))
+                st.components.v1.html(agent_card_html("🧠", f"Critic Agent — Iteration {i+1}", "done", feedback),
+                                height=card_height(feedback, "done"), scrolling=True)
 
             st.session_state["iterations"].append({
                 "i": i + 1,
@@ -772,19 +772,19 @@ if st.session_state["pipeline_done"] and not st.session_state["running"]:
     st.markdown(render_progress(-1, {0, 1, 2, 3, 4}), unsafe_allow_html=True)
 
     # Search
-    st.iframe(agent_card_html("🔍", "Search Agent",         s["search"]["status"],    s["search"]["output"]),    height=card_height(s["search"]["output"],    s["search"]["status"]))
+    st.components.v1.html(agent_card_html("🔍", "Search Agent",         s["search"]["status"],    s["search"]["output"]),    height=card_height(s["search"]["output"],    s["search"]["status"]),    scrolling=True)
     if s["search"].get("thinking"):
         with st.expander("🧠 Search Agent — Model Thinking", expanded=False):
             st.markdown(f'<div class="thinking-block">{_esc(s["search"]["thinking"])}</div>', unsafe_allow_html=True)
 
     # URL Selector
-    st.iframe(agent_card_html("🎯", "URL Selector Agent",   s["url_select"]["status"], s["url_select"]["output"]), height=card_height(s["url_select"]["output"], s["url_select"]["status"]))
+    st.components.v1.html(agent_card_html("🎯", "URL Selector Agent",   s["url_select"]["status"], s["url_select"]["output"]), height=card_height(s["url_select"]["output"], s["url_select"]["status"]), scrolling=True)
     if s["url_select"].get("thinking"):
         with st.expander("🧠 URL Selector — Model Thinking", expanded=False):
             st.markdown(f'<div class="thinking-block">{_esc(s["url_select"]["thinking"])}</div>', unsafe_allow_html=True)
 
     # Scraper
-    st.iframe(agent_card_html("🕷", "Scraper · Compressor", s["scraper"]["status"],   s["scraper"]["output"]),   height=card_height(s["scraper"]["output"],   s["scraper"]["status"]))
+    st.components.v1.html(agent_card_html("🕷", "Scraper · Compressor", s["scraper"]["status"],   s["scraper"]["output"]),   height=card_height(s["scraper"]["output"],   s["scraper"]["status"]),   scrolling=True)
     if s["scraper"].get("thinking"):
         with st.expander("🧠 Scraper — Model Thinking", expanded=False):
             st.markdown(f'<div class="thinking-block">{_esc(s["scraper"]["thinking"])}</div>', unsafe_allow_html=True)
@@ -800,16 +800,16 @@ if st.session_state["pipeline_done"] and not st.session_state["running"]:
 
         st.markdown(f'<div class="iter-badge">↺ &nbsp; Iteration {it["i"]}</div>', unsafe_allow_html=True)
 
-        st.iframe(agent_card_html("✍️", f"Writer Agent — Iteration {it['i']}", "done", it["report"]),
-                        height=card_height(it["report"], "done"))
+        st.components.v1.html(agent_card_html("✍️", f"Writer Agent — Iteration {it['i']}", "done", it["report"]),
+                        height=card_height(it["report"], "done"), scrolling=True)
         if it.get("report_thinking"):
             with st.expander(f"🧠 Writer Iter {it['i']} — Model Thinking", expanded=False):
                 st.markdown(f'<div class="thinking-block">{_esc(it["report_thinking"])}</div>', unsafe_allow_html=True)
 
         col_crit, col_score = st.columns([4, 1])
         with col_crit:
-            st.iframe(agent_card_html("🧠", f"Critic Agent — Iteration {it['i']}", "done", it["feedback"]),
-                            height=card_height(it["feedback"], "done"))
+            st.components.v1.html(agent_card_html("🧠", f"Critic Agent — Iteration {it['i']}", "done", it["feedback"]),
+                            height=card_height(it["feedback"], "done"), scrolling=True)
             if it.get("feedback_thinking"):
                 with st.expander(f"🧠 Critic Iter {it['i']} — Model Thinking", expanded=False):
                     st.markdown(f'<div class="thinking-block">{_esc(it["feedback_thinking"])}</div>', unsafe_allow_html=True)
