@@ -35,16 +35,21 @@ Topic: {topic}
 Research Provided:
 {research}
 
+Previous Critic Feedback (if any):
+{feedback}
+
 Output Requirements:
-- make sure the news you are giving is very very latest, if not then search again and give the latest news.
+- Make sure the insights are derived from the Research Provided.
+- If Critic Feedback is provided above, YOU MUST address it and improve upon your previous draft.
 - Assume the reader is a busy founder or executive.
-- Keep the entire response tight and scannable
-- Avoid long paragraphs, prefer bullets and short sections
-- No fluff, no repetition, no generic statements
+- Keep the entire response tight and scannable.
+- Avoid long paragraphs, prefer bullets and short sections.
+- No fluff, no repetition, no generic statements.
 
 Structure:
 
-1.(3–5 bullets)
+1. Executive Summary
+- 3–5 bullets
 - Most important insights
 - Must be immediately useful
 

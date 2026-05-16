@@ -578,7 +578,7 @@ if st.session_state["running"] and not st.session_state["pipeline_done"]:
         from agents import build_scraper_agent, build_search_agent, writer_chain, critic_chain
 
         MAX_ITER = 2
-        NUM_URLS = 3
+        NUM_URLS = 5
 
         # ── STEP 1: SEARCH ──
         st.session_state["active_step"] = 0
@@ -587,7 +587,7 @@ if st.session_state["running"] and not st.session_state["pipeline_done"]:
 
         search_agent  = build_search_agent()
         search_result = search_agent.invoke({
-            "messages": [("user", f"Find top {NUM_URLS} recent, reliable sources for: {topic_val}")]
+            "messages": [("user", f"Search for the top {NUM_URLS} most recent and reliable sources about '{topic_val}'. Return the URLs and a brief summary of what each page covers.")]
         })
         raw_msg       = search_result["messages"][-1]
         search_out    = raw_msg.content if hasattr(raw_msg, "content") else str(raw_msg)
@@ -605,20 +605,17 @@ if st.session_state["running"] and not st.session_state["pipeline_done"]:
         scraper_agent = build_scraper_agent()
         url_selection = scraper_agent.invoke({
             "messages": [("user", f"""
-Select top {NUM_URLS} URLs.
+Select the top {NUM_URLS} most relevant and trusted URLs from the search results below.
 
 Criteria:
-- highly relevant
-- trusted sources
-- minimal noise
+- Highly relevant to '{topic_val}'
+- Trusted sources
+- Minimal noise
 
-Return ONLY:
-URL1:
-URL2:
-URL3:
+Return a simple list of exactly {NUM_URLS} URLs, one per line. Do NOT include any extra text.
 
 Search Results:
-{search_out[:800]}
+{search_out}
 """)]
         })
         raw_url   = url_selection["messages"][-1]
@@ -636,15 +633,15 @@ Search Results:
 
         scraped    = scraper_agent.invoke({
             "messages": [("user", f"""
-Scrape these URLs and return ONLY key insights.
+Use your scraping tools to extract key insights from the following URLs.
 
 Rules:
-- Max 10 bullets total
-- No fluff
-- Keep facts, numbers, claims
-- Remove repetition
+- Max 10 bullets total across all URLs
+- No fluff, be concise
+- Focus on facts, numbers, and concrete claims
+- Remove any repetition
 
-URLs:
+URLs to scrape:
 {url_out}
 """)]
         })
